@@ -695,14 +695,14 @@ defmodule LiveviewDateRangePickerWeb.CoreComponents do
       end_date_field={@end_date_field}
       required={@required}
       readonly={@readonly}
-      is_range
+      is_range?
       min={@min}
     />
     <div phx-feedback-for={@start_date_field.name}>
-      <.error :for={msg <- @start_date_field.errors}><%= Helpers.format_form_error(msg) %></.error>
+      <.error :for={msg <- @start_date_field.errors}><%= format_form_error(msg) %></.error>
     </div>
     <div phx-feedback-for={@end_date_field.name}>
-      <.error :for={msg <- @end_date_field.errors}><%= Helpers.format_form_error(msg) %></.error>
+      <.error :for={msg <- @end_date_field.errors}><%= format_form_error(msg) %></.error>
     </div>
     """
   end
@@ -726,12 +726,15 @@ defmodule LiveviewDateRangePickerWeb.CoreComponents do
       start_date_field={@start_date_field}
       required={@required}
       readonly={@readonly}
-      is_range={false}
+      is_range?={false}
       min={@min}
     />
     <div phx-feedback-for={@start_date_field.name}>
-      <.error :for={msg <- @start_date_field.form.errors}><%= Helpers.format_form_error(msg) %></.error>
+      <.error :for={msg <- @start_date_field.form.errors}><%= format_form_error(msg) %></.error>
     </div>
     """
   end
+
+  defp format_form_error({_key, {msg, _type}}), do: msg
+  defp format_form_error({msg, _type}), do: msg
 end

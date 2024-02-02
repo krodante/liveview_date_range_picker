@@ -11,10 +11,22 @@ defmodule LiveviewDateRangePickerWeb.HomepageLive do
     >
       <.date_range_picker
         label="Date Range"
-        id="date-range-picker"
+        id="date_range_picker"
         form={@form}
         start_date_field={@form[:start_date]}
         end_date_field={@form[:end_date]}
+        min={Date.utc_today() |> Date.add(-7)}
+        required={true}
+      />
+
+      <br/>
+      <br/>
+
+      <.date_picker
+        label="Single Date"
+        id="date_picker"
+        form={@form}
+        start_date_field={@form[:start_date]}
         min={Date.utc_today() |> Date.add(-7)}
         required={true}
       />

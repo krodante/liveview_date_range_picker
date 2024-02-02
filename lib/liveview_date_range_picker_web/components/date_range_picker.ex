@@ -140,7 +140,7 @@ defmodule LiveviewDateRangePickerWeb.Components.DateRangePicker do
   @impl true
   def update(assigns, socket) do
     range_start = from_str!(assigns.start_date_field.value)
-    range_end = from_str!(end_value(assigns.end_date_field.value))
+    range_end = from_str!(end_value(assigns))
     current_date = socket.assigns.current.date
 
     {
@@ -214,7 +214,12 @@ defmodule LiveviewDateRangePickerWeb.Components.DateRangePicker do
       {:noreply, socket}
     else
       ranges = calculate_date_ranges(socket.assigns.state, date_time)
-      state = @fsm[socket.assigns.state]
+      state =
+        if socket.assigns.is_range? do
+          @fsm[socket.assigns.state]
+        else
+          @initial_state
+        end
 
       {
         :noreply,
