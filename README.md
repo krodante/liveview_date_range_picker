@@ -5,7 +5,7 @@
 
 This is a generic date range picker component that you may import into your Phoenix app. The repo includes a full Phoenix app in order to show functionality, but you will only need to copy a few files and lines of code to your app in order to use it.
 
-Requirements:
+**Requirements:**
 * Phoenix
 * Elixir
 * Tailwind
