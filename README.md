@@ -1,5 +1,8 @@
 # LiveView DateRangePicker
 
+![date range picker demo](https://github.com/krodante/liveview_date_range_picker/assets/22243947/ae7af671-1abd-4432-9b18-5796a65d3f15)
+
+
 This is a generic date range picker component that you may import into your Phoenix app. The repo includes a full Phoenix app in order to show functionality, but you will only need to copy a few files and lines of code to your app in order to use it.
 
 Requirements:
