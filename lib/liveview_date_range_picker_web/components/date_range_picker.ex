@@ -38,7 +38,7 @@ defmodule LiveviewDateRangePickerWeb.Components.DateRangePicker do
           id="calendar_background"
           class="w-full bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-3"
         >
-          <div id="calendar_header" class="flex justify-between text-gray-900">
+          <div id="calendar_header" class="flex justify-between">
             <div id="button_left">
               <button
                 type="button"
@@ -66,11 +66,8 @@ defmodule LiveviewDateRangePickerWeb.Components.DateRangePicker do
             </div>
           </div>
 
-          <div
-            id="click_today"
-            class="text-gray-500 text-sm text-center cursor-pointer"
-          >
-            <.link phx-click="today" phx-target={@myself}>
+          <div id="click_today" class="text-sm text-center">
+            <.link phx-click="today" phx-target={@myself} class="text-gray-700 hover:text-gray-500">
               Today
             </.link>
           </div>
@@ -85,7 +82,7 @@ defmodule LiveviewDateRangePickerWeb.Components.DateRangePicker do
           </div>
 
           <div
-            id={"calendar_days_#{@current.month |> String.replace(" ", "-")}"}
+            id={"calendar_days_#{String.replace(@current.month, " ", "-")}"}
             class="isolate mt-2 grid grid-cols-7 gap-px text-sm"
             phx-hook="DaterangeHover"
           >
@@ -101,7 +98,8 @@ defmodule LiveviewDateRangePickerWeb.Components.DateRangePicker do
                 before_min_date?(day, @min) && "text-gray-300 cursor-not-allowed",
                 !before_min_date?(day, @min) && "hover:bg-blue-300 hover:border hover:border-black",
                 other_month?(day, @current.date) && "text-gray-500",
-                selected_range?(day, @range_start, @hover_range_end || @range_end) && "hover:bg-blue-500 bg-blue-500 text-white"
+                selected_range?(day, @range_start, @hover_range_end || @range_end) &&
+                  "hover:bg-blue-500 bg-blue-500 text-white"
               ]}
             >
               <time
@@ -160,6 +158,11 @@ defmodule LiveviewDateRangePickerWeb.Components.DateRangePicker do
   end
 
   @impl true
+  def handle_event("close-calendar", _, %{assigns: %{range_start: nil, range_end: nil}} = socket) do
+    {:noreply, socket |> assign(:calendar?, false)}
+  end
+
+  @impl true
   def handle_event("close-calendar", _, socket) do
     [range_start, range_end] =
       [
@@ -167,7 +170,7 @@ defmodule LiveviewDateRangePickerWeb.Components.DateRangePicker do
         socket.assigns.range_end || socket.assigns.range_start
       ]
       |> Enum.sort(&(DateTime.compare(&1, &2) != :gt))
-      
+
     attrs = %{
       id: socket.assigns.id,
       start_date: range_start,
@@ -182,7 +185,10 @@ defmodule LiveviewDateRangePickerWeb.Components.DateRangePicker do
       socket
       |> assign(:calendar?, false)
       |> assign(:end_date_field, set_field_value(socket.assigns, :end_date_field, range_end))
-      |> assign(:start_date_field,set_field_value(socket.assigns, :start_date_field, range_start))
+      |> assign(
+        :start_date_field,
+        set_field_value(socket.assigns, :start_date_field, range_start)
+      )
       |> assign(:state, @initial_state)
     }
   end
@@ -214,6 +220,7 @@ defmodule LiveviewDateRangePickerWeb.Components.DateRangePicker do
       {:noreply, socket}
     else
       ranges = calculate_date_ranges(socket.assigns.state, date_time)
+
       state =
         if socket.assigns.is_range? do
           @fsm[socket.assigns.state]
@@ -227,7 +234,7 @@ defmodule LiveviewDateRangePickerWeb.Components.DateRangePicker do
         |> assign(ranges)
         |> assign(:state, state)
       }
-    end    
+    end
   end
 
   @impl true
@@ -275,7 +282,8 @@ defmodule LiveviewDateRangePickerWeb.Components.DateRangePicker do
     end
   end
 
-  defp next_month(last_row_first_month, last_row_last_month, last_day) when last_row_first_month == last_row_last_month do
+  defp next_month(last_row_first_month, last_row_last_month, last_day)
+       when last_row_first_month == last_row_last_month do
     last_day
     |> Date.end_of_month()
     |> Date.add(1)

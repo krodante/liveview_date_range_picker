@@ -2,7 +2,9 @@ defmodule LiveviewDateRangePickerWeb.ErrorJSONTest do
   use LiveviewDateRangePickerWeb.ConnCase, async: true
 
   test "renders 404" do
-    assert LiveviewDateRangePickerWeb.ErrorJSON.render("404.json", %{}) == %{errors: %{detail: "Not Found"}}
+    assert LiveviewDateRangePickerWeb.ErrorJSON.render("404.json", %{}) == %{
+             errors: %{detail: "Not Found"}
+           }
   end
 
   test "renders 500" do

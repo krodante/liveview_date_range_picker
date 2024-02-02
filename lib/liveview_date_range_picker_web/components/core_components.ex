@@ -676,8 +676,15 @@ defmodule LiveviewDateRangePickerWeb.CoreComponents do
 
   attr(:id, :string, required: true)
   attr(:label, :string, required: true)
-  attr(:start_date_field, :any, doc: "a %Phoenix.HTML.Form{}/field name tuple, for example: @form[:start_date]")
-  attr(:end_date_field, :any, doc: "a %Phoenix.HTML.Form{}/field name tuple, for example: @form[:end_date]")
+
+  attr(:start_date_field, :any,
+    doc: "a %Phoenix.HTML.Form{}/field name tuple, for example: @form[:start_date]"
+  )
+
+  attr(:end_date_field, :any,
+    doc: "a %Phoenix.HTML.Form{}/field name tuple, for example: @form[:end_date]"
+  )
+
   attr(:required, :boolean, default: false)
   attr(:readonly, :boolean, default: false)
   attr(:min, :any, default: @min_date)
@@ -709,7 +716,11 @@ defmodule LiveviewDateRangePickerWeb.CoreComponents do
 
   attr(:id, :string, required: true)
   attr(:label, :string, required: true)
-  attr(:start_date_field, :any, doc: "a %Phoenix.HTML.Form{}/field name tuple, for example: @form[:start_date]")
+
+  attr(:start_date_field, :any,
+    doc: "a %Phoenix.HTML.Form{}/field name tuple, for example: @form[:start_date]"
+  )
+
   attr(:required, :boolean, default: false)
   attr(:readonly, :boolean, default: false)
   attr(:min, :any, default: @min_date)

@@ -3,12 +3,7 @@ defmodule LiveviewDateRangePickerWeb.HomepageLive do
 
   def render(assigns) do
     ~H"""
-    <.simple_form
-      for={@form}
-      id="demo_form"
-      phx-change="validate"
-      phx-submit="save"
-    >
+    <.simple_form for={@form} id="demo_form" phx-change="validate" phx-submit="save">
       <.date_range_picker
         label="Date Range"
         id="date_range_picker"
@@ -19,8 +14,8 @@ defmodule LiveviewDateRangePickerWeb.HomepageLive do
         required={true}
       />
 
-      <br/>
-      <br/>
+      <br />
+      <br />
 
       <.date_picker
         label="Single Date"

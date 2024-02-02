@@ -9,7 +9,8 @@ defmodule LiveviewDateRangePicker.Application do
   def start(_type, _args) do
     children = [
       LiveviewDateRangePickerWeb.Telemetry,
-      {DNSCluster, query: Application.get_env(:liveview_date_range_picker, :dns_cluster_query) || :ignore},
+      {DNSCluster,
+       query: Application.get_env(:liveview_date_range_picker, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: LiveviewDateRangePicker.PubSub},
       # Start a worker by calling: LiveviewDateRangePicker.Worker.start_link(arg)
       # {LiveviewDateRangePicker.Worker, arg},
